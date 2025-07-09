@@ -24,12 +24,13 @@ export default function WebView(props: {
   const devServerRef = useRef<FreestyleDevServerHandle>(null);
 
   return (
-    <div className="flex flex-col overflow-hidden h-screen border-l transition-opacity duration-700 mt-[2px]">
-      <div className="h-12 border-b border-gray-200 items-center flex px-2 bg-background sticky top-0 justify-end gap-2">
+    <div className="flex flex-col overflow-hidden h-screen border-l border-gray-800 transition-opacity duration-700 mt-[2px] bg-black">
+      <div className="h-12 border-b border-gray-800 items-center flex px-2 bg-black sticky top-0 justify-end gap-2">
         <Button
           variant={"ghost"}
           size={"icon"}
           onClick={() => devServerRef.current?.refresh()}
+          className="hover:bg-white/10 text-white"
         >
           <RefreshCwIcon />
         </Button>
@@ -41,10 +42,10 @@ export default function WebView(props: {
         repoId={props.repo}
         loadingComponent={({ iframeLoading, devCommandRunning }) =>
           !devCommandRunning && (
-            <div className="flex items-center justify-center h-full">
+            <div className="flex items-center justify-center h-full bg-black">
               <div>
-                <div className="text-center">
-                  {iframeLoading ? "JavaScript Loading" : "Starting VM"}
+                <div className="text-center text-white mb-4">
+                  {iframeLoading ? "Loading Preview" : "Starting Development Server"}
                 </div>
                 <div>
                   <div className="loader"></div>

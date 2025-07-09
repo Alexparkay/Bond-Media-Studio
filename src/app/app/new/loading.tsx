@@ -4,9 +4,9 @@ import "@/components/loader.css";
 export default function Loading() {
   return (
     <ViewTransition>
-      <div className="flex justify-center items-center h-screen">
+      <div className="flex justify-center items-center h-screen bg-black">
         <div>
-          <div className="text-center">Creating App</div>
+          <div className="text-center text-white mb-4">Creating your premium landing page...</div>
           <div className="loader"></div>
         </div>
       </div>

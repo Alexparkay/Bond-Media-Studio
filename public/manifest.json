@@ -1,6 +1,6 @@
 {
-  "short_name": "Adorable",
-  "name": "Adorable",
+  "short_name": "Bond Media Studio",
+  "name": "Bond Media Studio",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",
@@ -30,11 +30,11 @@
   ],
   "id": "/?source=pwa",
   "start_url": "/?source=pwa",
-  "background_color": "#ffffff",
+  "background_color": "#000000",
   "display": "standalone",
   "scope": "/",
-  "theme_color": "#ffffff",
+  "theme_color": "#000000",
   "shortcuts": [],
-  "description": "Adorable is an open source AI app builder.",
+  "description": "Create bespoke premium landing pages with AI-powered tools by Bond Media.",
   "screenshots": []
 }

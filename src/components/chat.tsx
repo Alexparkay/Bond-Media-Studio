@@ -70,7 +70,7 @@ export default function Chat(props: {
 
   return (
     <div
-      className="flex flex-col h-full"
+      className="flex flex-col h-full bg-black"
       style={{ transform: "translateZ(0)" }}
     >
       {props.topBar}
@@ -84,7 +84,7 @@ export default function Chat(props: {
           ))}
         </ChatContainer>
       </div>
-      <div className="flex-shrink-0 p-3 transition-all bg-background md:backdrop-blur-sm">
+      <div className="flex-shrink-0 p-3 transition-all bg-black/80 backdrop-blur-sm border-t border-white/10">
         <PromptInputBasic
           input={input || ""}
           onSubmit={onSubmit}
@@ -102,7 +102,7 @@ function MessageBody({ message }: { message: Message }) {
   if (message.role === "user") {
     return (
       <div className="flex justify-end py-1 mb-4">
-        <div className="bg-neutral-200 dark:bg-neutral-700 rounded-xl px-4 py-1 max-w-[80%] ml-auto">
+        <div className="gradient-card border border-white/10 rounded-xl px-4 py-2 max-w-[80%] ml-auto text-white">
           {message.content}
         </div>
       </div>

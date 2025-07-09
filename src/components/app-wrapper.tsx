@@ -62,9 +62,13 @@ export default function AppWrapper({
 
   return (
     <RepoContext.Provider value={repoId}>
-      <div className="h-screen flex flex-col" style={{ height: '100dvh' }}>
+      <div className="h-screen flex flex-col bg-black" style={{ height: '100dvh' }}>
+        {/* Premium gradient backgrounds */}
+        <div className="absolute inset-0 gradient-premium-dark"></div>
+        <div className="absolute inset-0 gradient-radial opacity-30"></div>
+        
         {/* Desktop and Mobile container */}
-        <div className="flex-1 overflow-hidden flex flex-col md:grid md:grid-cols-[1fr_2fr]">
+        <div className="relative z-10 flex-1 overflow-hidden flex flex-col md:grid md:grid-cols-[1fr_2fr]">
           {/* Chat component - positioned for both mobile and desktop */}
           <div 
             className={

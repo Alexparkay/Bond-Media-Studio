@@ -43,11 +43,11 @@ export function AppCard({ id, name, createdAt, onDelete }: AppCardProps) {
   };
 
   return (
-    <Card className="p-3 sm:p-4 border-b border rounded-md h-32 sm:h-36 relative w-full">
+    <Card className="p-3 sm:p-4 border-white/10 bg-white/5 backdrop-blur-sm rounded-xl h-32 sm:h-36 relative w-full hover:bg-white/10 transition-all duration-200">
       <Link href={`/app/${id}`} className="cursor-pointer block">
         <CardHeader className="p-0">
-          <CardTitle className="text-sm sm:text-base truncate">{name}</CardTitle>
-          <CardDescription className="text-xs sm:text-sm">
+          <CardTitle className="text-sm sm:text-base truncate text-white">{name}</CardTitle>
+          <CardDescription className="text-xs sm:text-sm text-gray-400">
             Created {createdAt.toLocaleDateString()}
           </CardDescription>
         </CardHeader>
@@ -56,20 +56,20 @@ export function AppCard({ id, name, createdAt, onDelete }: AppCardProps) {
       <div className="absolute top-2 right-2 transition-opacity">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <button className="p-1 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none">
-              <MoreVertical className="h-4 w-4" />
+            <button className="p-1 rounded-md hover:bg-white/10 focus:outline-none">
+              <MoreVertical className="h-4 w-4 text-gray-400" />
             </button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuItem onClick={handleOpen}>
+          <DropdownMenuContent align="end" className="bg-gray-900 border-white/10">
+            <DropdownMenuItem onClick={handleOpen} className="hover:bg-white/10">
               <ExternalLink className="mr-2 h-4 w-4" />
               Open
             </DropdownMenuItem>
 
-            <DropdownMenuSeparator />
+            <DropdownMenuSeparator className="bg-white/10" />
             <DropdownMenuItem
               onClick={handleDelete}
-              className="text-red-600 dark:text-red-400"
+              className="text-red-400 hover:bg-white/10 hover:text-red-300"
             >
               <Trash className="mr-2 h-4 w-4" />
               Delete

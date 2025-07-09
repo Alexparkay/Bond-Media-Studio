@@ -7,42 +7,40 @@ import {
   PromptInputTextarea,
   PromptInputActions,
 } from "@/components/ui/prompt-input";
-import { FrameworkSelector } from "@/components/framework-selector";
-import Image from "next/image";
-import LogoSvg from "@/logo.svg";
 import { useEffect, useState as useReactState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { ExampleButton } from "@/components/ExampleButton";
 import { unstable_ViewTransition as ViewTransition } from "react";
 import { UserButton } from "@stackframe/stack";
-import { UserApps } from "@/components/user-apps";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ProjectsSidebar } from "@/components/projects-sidebar";
+import { FolderOpen, Sparkles } from "lucide-react";
 
 const queryClient = new QueryClient();
 
 export default function Home() {
   const [prompt, setPrompt] = useState("");
-  const [framework, setFramework] = useState("next");
   const [isLoading, setIsLoading] = useState(false);
   const [isMounted, setIsMounted] = useReactState(false);
+  const [showProjects, setShowProjects] = useState(false);
   const router = useRouter();
 
   // For the typing animation
   const placeholderRef = useRef<HTMLTextAreaElement>(null);
   const [placeholderText, setPlaceholderText] = useState("");
-  const fullPlaceholder = "I want to build";
+  const fullPlaceholder = "Describe your premium landing page";
   const exampleIdeas = [
-    "a dog food marketplace",
-    "a personal portfolio website for my mother's bakery",
-    "a B2B SaaS for burrito shops to sell burritos",
-    "a social network for coders to find grass to touch",
-    "a potato farm.🇮🇪 🇮🇪 🇮🇪            ",
+    "a luxury real estate showcase",
+    "a high-end SaaS product launch page",
+    "a premium fitness coaching platform",
+    "an exclusive membership site",
+    "a boutique e-commerce storefront",
   ];
 
   // Ensure hydration is complete before starting typing animation
   useEffect(() => {
     setIsMounted(true);
-  });
+  }, []);
 
   // Typing animation effect
   useEffect(() => {
@@ -102,105 +100,116 @@ export default function Home() {
   }, [isMounted]);
 
   const handleSubmit = async () => {
+    if (!prompt.trim()) return;
+    
     setIsLoading(true);
     router.push(
-      `/app/new?message=${encodeURIComponent(prompt)}&baseId=${
-        {
-          next: "nextjs-dkjfgdf",
-          vite: "vite-skdjfls",
-          expo: "expo-lksadfp",
-        }[framework]
-      }`
+      `/app/new?message=${encodeURIComponent(prompt)}&baseId=nextjs-dkjfgdf`
     );
   };
 
   return (
     <ViewTransition>
       <QueryClientProvider client={queryClient}>
-        <main className="min-h-screen p-4 relative">
-          <div className="flex w-full justify-between items-center">
-            <h1 className="text-lg font-bold flex-1 sm:w-80">
-              <a href="https://www.freestyle.sh">freestyle.sh</a>
-            </h1>
-            <Image
-              className="dark:invert mx-2"
-              src={LogoSvg}
-              alt="Adorable Logo"
-              width={36}
-              height={36}
-            />
-            <div className="flex items-center gap-2 flex-1 sm:w-80 justify-end">
-              <UserButton />
+        <ProjectsSidebar isOpen={showProjects} onClose={() => setShowProjects(false)} />
+        
+        <main className="min-h-screen p-4 relative bg-black overflow-hidden">
+          {/* Premium gradient backgrounds */}
+          <div className="absolute inset-0 gradient-premium-dark"></div>
+          <div className="absolute inset-0 gradient-radial"></div>
+          <div className="absolute inset-0 gradient-subtle"></div>
+          
+          <div className="relative z-10">
+            <div className="flex w-full justify-between items-center mb-8">
+              <div className="flex items-center gap-4">
+                <h1 className="text-2xl font-bold text-white">
+                  Bond Media Studio
+                </h1>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setShowProjects(true)}
+                  className="flex items-center gap-2 border-white/20 hover:bg-white/10 hover:border-white/30 transition-all"
+                >
+                  <FolderOpen className="h-4 w-4" />
+                  Projects
+                </Button>
+              </div>
+              
+              <div className="flex items-center gap-2">
+                <UserButton />
+              </div>
             </div>
-          </div>
 
-          <div className="grid">
-            <div className="w-full -mx-1 flex flex-col items-end col-start-1 col-end-1 row-start-1 row-end-1 opacity-20 select-none">
-              {/* placeholder for background */}
-            </div>
-            <div className="w-full max-w-lg px-4 sm:px-0 mx-auto flex flex-col items-center mt-16 sm:mt-24 md:mt-32 col-start-1 col-end-1 row-start-1 row-end-1 z-10">
-              <p className="text-neutral-600 text-center mb-6 text-3xl sm:text-4xl md:text-5xl font-bold">
-                Let AI Cook
-              </p>
+            <div className="max-w-4xl mx-auto">
+              <div className="w-full flex flex-col items-center mt-16 sm:mt-24 md:mt-32">
+                <h2 className="text-white text-center mb-6 text-4xl sm:text-5xl md:text-6xl font-bold">
+                  Create Premium Landing Pages
+                </h2>
+                <p className="text-gray-400 text-center mb-8 text-lg">
+                  Powered by AI, designed for excellence
+                </p>
 
-              <div className="w-full relative my-5">
-                <div className="relative w-full max-w-full overflow-hidden">
-                  <div className="w-full bg-accent rounded-md relative z-10 border transition-colors">
-                    <PromptInput
-                      leftSlot={
-                        <FrameworkSelector
-                          value={framework}
-                          onChange={setFramework}
+                <div className="w-full relative my-5 max-w-2xl">
+                  <div className="relative">
+                    {/* Gradient glow effect */}
+                    <div className="absolute -inset-4 bg-gradient-to-r from-blue-600/20 to-purple-600/20 rounded-xl blur-xl opacity-50"></div>
+                    
+                    <div className="relative w-full overflow-hidden gradient-card rounded-xl border border-white/10 hover:border-white/20 transition-all">
+                      <PromptInput>
+                        <PromptInputTextarea
+                          ref={placeholderRef}
+                          value={prompt}
+                          onChange={(e) => setPrompt(e.target.value)}
+                          placeholder={placeholderText || fullPlaceholder}
+                          className="min-h-[100px] bg-transparent border-0 resize-none text-white placeholder:text-gray-500 p-4"
+                          autoFocus
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter" && !e.shiftKey) {
+                              e.preventDefault();
+                              handleSubmit();
+                            }
+                          }}
                         />
-                      }
-                      isLoading={isLoading}
-                      value={prompt}
-                      onValueChange={setPrompt}
-                      onSubmit={handleSubmit}
-                      className="relative z-10 border-none bg-transparent shadow-none focus-within:border-gray-400 focus-within:ring-1 focus-within:ring-gray-200 transition-all duration-200 ease-in-out "
-                    >
-                      <PromptInputTextarea
-                        ref={placeholderRef}
-                        placeholder={placeholderText ?? fullPlaceholder}
-                        className="min-h-[100px] w-full bg-transparent dark:bg-transparent backdrop-blur-sm pr-12"
-                        onBlur={() => {}}
-                      />
-                      <PromptInputActions>
-                        <Button
-                          variant={"ghost"}
-                          size="sm"
-                          onClick={handleSubmit}
-                          disabled={isLoading || !prompt.trim()}
-                          className="h-7 text-xs"
-                        >
-                          <span className="hidden sm:inline">
-                            Start Creating ⏎
-                          </span>
-                          <span className="sm:hidden">Create ⏎</span>
-                        </Button>
-                      </PromptInputActions>
-                    </PromptInput>
+                        <PromptInputActions className="px-4 pb-4 bg-transparent">
+                          <Button
+                            onClick={handleSubmit}
+                            disabled={isLoading || !prompt.trim()}
+                            className="bg-white text-black hover:bg-gray-100 font-semibold px-6 transition-all"
+                          >
+                            <Sparkles className="h-4 w-4 mr-2" />
+                            Start Creating
+                          </Button>
+                        </PromptInputActions>
+                      </PromptInput>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <Examples setPrompt={setPrompt} />
-              <div className="mt-8 mb-16">
-                <a
-                  href="https://freestyle.sh"
-                  className="border rounded-md px-4 py-2 mt-4 text-sm font-semibold transition-colors duration-200 ease-in-out cursor-pointer w-full max-w-72 text-center block"
-                >
-                  <span className="block font-bold">
-                    By <span className="underline">freestyle.sh</span>
-                  </span>
-                  <span className="text-xs">
-                    JavaScript infrastructure for AI.
-                  </span>
-                </a>
+
+                <div className="mt-12 w-full max-w-3xl">
+                  <p className="text-center text-gray-400 mb-4 text-sm">
+                    Choose from our premium templates
+                  </p>
+                  <Examples setPrompt={setPrompt} />
+                </div>
+
+                <div className="mt-16 mb-16">
+                  <a
+                    href="https://www.bondmedia.co.uk/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group gradient-card border border-white/10 rounded-xl px-6 py-4 mt-4 text-sm font-semibold transition-all duration-300 ease-in-out cursor-pointer block hover:border-white/30 hover:shadow-lg hover:shadow-white/5"
+                  >
+                    <span className="block font-bold text-white">
+                      Bond Media Studio
+                    </span>
+                    <span className="text-xs text-gray-400 group-hover:text-gray-300">
+                      by Bond Media - Premium Web Solutions
+                    </span>
+                  </a>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="border-t py-8 mx-0 sm:-mx-4">
-            <UserApps />
           </div>
         </main>
       </QueryClientProvider>
@@ -211,30 +220,42 @@ export default function Home() {
 function Examples({ setPrompt }: { setPrompt: (text: string) => void }) {
   return (
     <div className="mt-2">
-      <div className="flex flex-wrap justify-center gap-2 px-2">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 px-2">
         <ExampleButton
-          text="Dog Food Marketplace"
-          promptText="Build a dog food marketplace where users can browse and purchase premium dog food."
-          onClick={(text) => {
-            console.log("Example clicked:", text);
-            setPrompt(text);
-          }}
+          text="Luxury Real Estate"
+          promptText="Create a premium real estate landing page with property showcase, virtual tours, and contact forms for high-end properties"
+          onClick={(text) => setPrompt(text)}
+          className="gradient-card border-white/10 hover:border-white/20 text-white transition-all hover:shadow-md hover:shadow-white/5"
         />
         <ExampleButton
-          text="Personal Website"
-          promptText="Create a personal website with portfolio, blog, and contact sections."
-          onClick={(text) => {
-            console.log("Example clicked:", text);
-            setPrompt(text);
-          }}
+          text="SaaS Product Launch"
+          promptText="Build a modern SaaS product launch page with pricing tiers, feature highlights, and demo booking system"
+          onClick={(text) => setPrompt(text)}
+          className="gradient-card border-white/10 hover:border-white/20 text-white transition-all hover:shadow-md hover:shadow-white/5"
         />
         <ExampleButton
-          text="Burrito B2B SaaS"
-          promptText="Build a B2B SaaS for burrito shops to manage inventory, orders, and delivery logistics."
-          onClick={(text) => {
-            console.log("Example clicked:", text);
-            setPrompt(text);
-          }}
+          text="Premium Coaching"
+          promptText="Design a high-converting coaching platform landing page with testimonials, booking system, and course showcase"
+          onClick={(text) => setPrompt(text)}
+          className="gradient-card border-white/10 hover:border-white/20 text-white transition-all hover:shadow-md hover:shadow-white/5"
+        />
+        <ExampleButton
+          text="Exclusive Membership"
+          promptText="Create an exclusive membership site landing page with tiered access, member benefits, and secure login portal"
+          onClick={(text) => setPrompt(text)}
+          className="gradient-card border-white/10 hover:border-white/20 text-white transition-all hover:shadow-md hover:shadow-white/5"
+        />
+        <ExampleButton
+          text="Boutique E-commerce"
+          promptText="Build a sophisticated e-commerce landing page with product galleries, checkout flow, and brand storytelling"
+          onClick={(text) => setPrompt(text)}
+          className="gradient-card border-white/10 hover:border-white/20 text-white transition-all hover:shadow-md hover:shadow-white/5"
+        />
+        <ExampleButton
+          text="Corporate Portfolio"
+          promptText="Design a professional corporate portfolio landing page with case studies, services, and client testimonials"
+          onClick={(text) => setPrompt(text)}
+          className="gradient-card border-white/10 hover:border-white/20 text-white transition-all hover:shadow-md hover:shadow-white/5"
         />
       </div>
     </div>

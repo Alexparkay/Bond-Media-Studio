@@ -18,8 +18,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Adorable",
-  description: "Open Source AI App Builder",
+  title: "Bond Media Studio",
+  description: "Bespoke Premium Landing Pages by Bond Media",
   manifest: "/manifest.json",
   viewport: {
     width: "device-width",
@@ -36,18 +36,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className="dark">
       <body
         className={cn(
-          `${geistSans.variable} ${geistMono.variable} antialiased`
+          `${geistSans.variable} ${geistMono.variable} antialiased`,
+          "dark bg-black"
         )}
       >
         <ThemeProvider
           attribute="class"
-          defaultTheme="light"
+          defaultTheme="dark"
           enableSystem={false}
           disableTransitionOnChange
-          forcedTheme="light"
+          forcedTheme="dark"
         >
           <Toaster />
 

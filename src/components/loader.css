@@ -1,26 +1,33 @@
 .loader {
-  height: 4px;
-  width: 130px;
-  --c: no-repeat linear-gradient(#6100ee 0 0);
-  background: var(--c), var(--c), #d7b8fc;
-  background-size: 60% 100%;
-  animation: l16 3s infinite;
+  width: 48px;
+  height: 48px;
+  display: inline-block;
+  position: relative;
+}
+.loader::after,
+.loader::before {
+  content: "";
+  box-sizing: border-box;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #3b82f6;
+  position: absolute;
+  left: 0;
+  top: 0;
+  animation: animloader 2s linear infinite;
+}
+.loader::after {
+  animation-delay: 1s;
 }
 
-@keyframes l16 {
+@keyframes animloader {
   0% {
-    background-position:
-      -150% 0,
-      -150% 0;
-  }
-  66% {
-    background-position:
-      250% 0,
-      -150% 0;
+    transform: scale(0);
+    opacity: 1;
   }
   100% {
-    background-position:
-      250% 0,
-      250% 0;
+    transform: scale(1);
+    opacity: 0;
   }
 }
