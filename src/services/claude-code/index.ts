@@ -7,12 +7,8 @@ import { WebsiteGenerationRequest, ClaudeCodeOptions } from "./types";
 export * from "./types";
 export * from "./prompts";
 
-// Determine which service to use based on environment
-const isProduction = process.env.NODE_ENV === "production";
-const isVercel = process.env.VERCEL === "1";
-
-// Use real Claude Code on Vercel/production, mock for local development
-const ServiceClass = isProduction || isVercel ? ClaudeCodeService : MockClaudeCodeService;
+// Always use the real Claude Code service now that it's implemented with Anthropic API
+const ServiceClass = ClaudeCodeService;
 
 export class ClaudeCodeManager {
   private service: ClaudeCodeService | MockClaudeCodeService;
