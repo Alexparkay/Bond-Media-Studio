@@ -5,9 +5,11 @@ Open-source version of **Lovable** - an AI agent that can make websites and apps
 ## Features
 
 - Chat interface for interacting with AI code assistants
+- **NEW: Claude Code SDK integration for premium website generation** (see [Claude Code Integration](CLAUDE_CODE_INTEGRATION.md))
 - Patch-based code editing with user approval
 - Git integration for version control
 - Preview capabilities for code changes
+- Specialized prompts for creating high-converting, professional websites
 
 ## Setup Instructions
 

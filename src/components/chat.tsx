@@ -25,7 +25,12 @@ export default function Chat(props: {
       headers: {
         "Adorable-App-Id": props.appId,
       },
-      api: "/api/chat",
+      api: (() => {
+        // ALWAYS use Claude Code for premium website generation
+        const apiRoute = "/api/chat-claude-code";
+        console.log(`[Chat] Using API route: ${apiRoute} (Claude Code ALWAYS enabled)`);
+        return apiRoute;
+      })(),
       experimental_prepareRequestBody: (request) => {
         const lastMessage = request.messages.at(-1) ?? null;
         return {

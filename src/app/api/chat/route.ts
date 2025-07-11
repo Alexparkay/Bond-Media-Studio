@@ -15,6 +15,7 @@ import { EventEmitter } from "events";
 EventEmitter.defaultMaxListeners = 1000;
 
 export async function POST(req: Request) {
+  console.log("[Standard Chat Route] Request received - NOT using Claude Code");
   const appId = getAppIdFromHeaders(req);
 
   if (!appId) {
