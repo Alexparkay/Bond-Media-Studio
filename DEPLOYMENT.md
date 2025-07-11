@@ -1,5 +1,37 @@
 # Deployment Guide for Vercel
 
+## ⚠️ IMPORTANT: Stack Auth Build Error Fix
+
+If you're getting the error:
+```
+Error: Welcome to Stack Auth! It seems that you haven't provided a project ID...
+```
+
+This is because Vercel isn't recognizing the NEXT_PUBLIC_ environment variables during build. Here's how to fix it:
+
+### Quick Fix Steps:
+
+1. **In Vercel Dashboard:**
+   - Go to your project settings
+   - Click on "Environment Variables"
+   - Make sure you have BOTH of these set:
+     - `NEXT_PUBLIC_STACK_PROJECT_ID`
+     - `NEXT_PUBLIC_STACK_PUBLISHABLE_CLIENT_KEY`
+   - Double-check there are no spaces before or after the values
+
+2. **Clear Cache and Redeploy:**
+   - Go to Settings → Functions
+   - Click "Clear Cache"
+   - Go to Deployments
+   - Click the three dots on your latest deployment
+   - Select "Redeploy"
+   - Check "Use existing build cache" should be UNCHECKED
+
+3. **If Still Not Working:**
+   - Delete the project from Vercel
+   - Re-import from GitHub
+   - Add ALL environment variables BEFORE the first deployment
+
 ## Prerequisites
 
 Before deploying to Vercel, ensure you have:
@@ -117,6 +149,16 @@ If you haven't already, ensure your production database has the tables:
 3. **Build failures**:
    - Check all environment variables are set
    - Review build logs for specific errors
+
+4. **"Failed to collect page data" or "project ID not found" errors**:
+   - This is a common Vercel issue with NEXT_PUBLIC_ variables
+   - Make sure ALL these variables are set in Vercel:
+     - `NEXT_PUBLIC_STACK_PROJECT_ID`
+     - `NEXT_PUBLIC_STACK_PUBLISHABLE_CLIENT_KEY`
+   - After adding variables, you may need to:
+     - Redeploy from Vercel dashboard
+     - Clear build cache (Settings → Functions → Clear Cache)
+   - Ensure there are no typos or extra spaces in the variable names/values
 
 ### Environment Variables Checklist:
 
