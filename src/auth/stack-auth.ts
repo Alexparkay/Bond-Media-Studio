@@ -17,15 +17,14 @@ export async function getUser() {
   if (!user?.serverMetadata?.freestyleIdentity) {
     const gitIdentity = await freestyle.createGitIdentity();
 
-    await user.update({
-      serverMetadata: {
-        freestyleIdentity: gitIdentity.id,
-      },
+    await stackServerApp.updateServerMetadata(user.id, {
+      ...user.serverMetadata,
+      freestyleIdentity: gitIdentity.id,
     });
   }
 
   return {
     userId: user.id,
-    freestyleIdentity: user.serverMetadata.freestyleIdentity,
+    freestyleIdentity: user.serverMetadata?.freestyleIdentity || '',
   };
 }

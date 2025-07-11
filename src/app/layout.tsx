@@ -21,13 +21,14 @@ export const metadata: Metadata = {
   title: "Bond Media Studio",
   description: "Bespoke Premium Landing Pages by Bond Media",
   manifest: "/manifest.json",
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 1,
-    userScalable: false,
-    viewportFit: "cover"
-  }
+};
+
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  viewportFit: "cover"
 };
 
 export default function RootLayout({
