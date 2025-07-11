@@ -9,16 +9,6 @@
       "memory": 2048
     }
   },
-  "env": {
-    "ANTHROPIC_API_KEY": "@anthropic-api-key",
-    "DATABASE_URL": "@database-url", 
-    "FREESTYLE_API_KEY": "@freestyle-api-key",
-    "STACK_PROJECT_ID": "@stack-project-id",
-    "STACK_PUBLISHABLE_CLIENT_KEY": "@stack-publishable-client-key",
-    "STACK_SECRET_SERVER_KEY": "@stack-secret-server-key",
-    "NEXT_PUBLIC_STACK_PROJECT_ID": "@stack-project-id",
-    "NEXT_PUBLIC_STACK_PUBLISHABLE_CLIENT_KEY": "@stack-publishable-client-key"
-  },
   "buildCommand": "npm run build",
   "installCommand": "npm install",
   "framework": "nextjs"
