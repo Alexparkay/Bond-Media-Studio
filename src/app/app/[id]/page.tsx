@@ -8,9 +8,7 @@ import { db } from "@/lib/db";
 import { appUsers } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { getUser } from "@/auth/stack-auth";
-import { memory } from "@/mastra/agents/builder";
 import { redirect, RedirectType } from "next/navigation";
-import { getStream } from "@/lib/streams";
 
 export default async function AppPage({
   params,
@@ -22,11 +20,13 @@ export default async function AppPage({
   const { id } = await params;
   const { unsentMessage } = await searchParams;
 
-  const stream = await getStream(id);
-  if (!unsentMessage && stream) {
+  // Check for existing stream
+  const streamData = globalThis.streams?.[id];
+  if (!unsentMessage && streamData?.readable) {
     console.log("stream found for id:", id);
+    const streamPrompt = streamData.prompt || "continue";
     return redirect(
-      `/app/${id}?unsentMessage=${encodeURIComponent(stream.prompt)}`,
+      `/app/${id}?unsentMessage=${encodeURIComponent(streamPrompt)}`,
       RedirectType.replace
     );
   }
@@ -51,10 +51,8 @@ export default async function AppPage({
 
   const app = await getApp(id);
 
-  const { uiMessages } = await memory.query({
-    threadId: id,
-    resourceId: id,
-  });
+  // Use database messages instead of memory for better consistency
+  const initialMessages = app.messages || [];
 
   const { codeServerUrl } = await freestyle.requestDevServer({
     repoId: app?.info.gitRepo,
@@ -72,7 +70,7 @@ export default async function AppPage({
         baseId={app.info.baseId}
         codeServerUrl={codeServerUrl}
         appName={app.info.name}
-        initialMessages={uiMessages}
+        initialMessages={initialMessages}
         repo={app.info.gitRepo}
         appId={app.info.id}
         repoId={app.info.gitRepo}
